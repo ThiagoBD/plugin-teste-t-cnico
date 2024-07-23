@@ -2,6 +2,8 @@ package br.com.thiago.testeTecnicoPlugin.comands;
 
 import br.com.thiago.testeTecnicoPlugin.dao.HomeDAO;
 import br.com.thiago.testeTecnicoPlugin.model.PlayerHome;
+import br.com.thiago.testeTecnicoPlugin.util.CooldownManager;
+import br.com.thiago.testeTecnicoPlugin.util.ParticleUtil;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,8 +14,10 @@ import java.util.UUID;
 
 public class HomeCommand implements CommandExecutor {
     private final HomeDAO homeDAO;
+    private final CooldownManager cooldownManager;
 
-    public HomeCommand(HomeDAO homeDAO) {
+    public HomeCommand(HomeDAO homeDAO, CooldownManager cooldownManager) {
+        this.cooldownManager = cooldownManager;
         this.homeDAO = homeDAO;
     }
 
@@ -26,6 +30,12 @@ public class HomeCommand implements CommandExecutor {
 
         Player player = (Player) sender;
         UUID playerId = player.getUniqueId();
+        if (cooldownManager.hasCooldown(playerId)) {
+            player.sendMessage("Você precisa esperar antes de usar o teleporte novamente!");
+            long remainingTime = cooldownManager.getRemainingTime(playerId);
+            player.sendMessage("Tempo restante: " + (remainingTime / 1000) + " segundos.");
+            return true;
+        }
 
         PlayerHome home = homeDAO.getHome(playerId);
         if (home == null) {
@@ -35,6 +45,8 @@ public class HomeCommand implements CommandExecutor {
 
         Location homeLocation = home.getLocation();
         player.teleport(homeLocation);
+        ParticleUtil.showTeleportParticles(player);
+        cooldownManager.setCooldown(playerId);
         player.sendMessage("Teleporte realizado com sucesso!");
 
         return true;
