@@ -1,0 +1,4 @@
+name: TesteTecnicoPlugin
+version: '1.0-SNAPSHOT'
+main: br.com.thiago.testeTecnicoPlugin.Main
+api-version: '1.21'
