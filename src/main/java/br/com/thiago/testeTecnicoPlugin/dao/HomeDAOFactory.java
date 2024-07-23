@@ -1,5 +1,9 @@
 package br.com.thiago.testeTecnicoPlugin.dao;
 
-public class HomeDAOFactory {
+import br.com.thiago.testeTecnicoPlugin.util.DataBaseConnection;
 
+public class HomeDAOFactory {
+    public static HomeDAO createHomeDAO() {
+        return new HomeDAOImpl(DataBaseConnection.getInstance().getConnection());
+    }
 }
