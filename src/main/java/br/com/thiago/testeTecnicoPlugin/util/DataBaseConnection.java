@@ -11,9 +11,9 @@ public class DataBaseConnection {
     private DataBaseConnection() {
         try {
             // Substitua com seus próprios detalhes de conexão
-            String url = "jdbc:mysql://localhost:3306/minecraft";
-            String user = "username";
-            String password = "password";
+            String url = "jdbc:mysql://127.0.0.1:3306/t_home";
+            String user = "root";
+            String password = "thiago123";
             this.connection = DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
             e.printStackTrace();
