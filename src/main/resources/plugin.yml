@@ -7,3 +7,6 @@ commands:
     description: Define uma nova home.
   home:
     description: Teleporta para a home definida.
+  setAttributesWindCharge:
+    description: Altera os Atributos do WindCharge
+    usage: /setAttributesWindCharge <dano> <velocidade>

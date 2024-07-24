@@ -25,7 +25,7 @@ public class SetHomeCommand implements CommandExecutor {
 
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] strings) {
         if (!(sender instanceof Player)) {
             sender.sendMessage("Este comando só pode ser executado por jogadores.");
             return true;
