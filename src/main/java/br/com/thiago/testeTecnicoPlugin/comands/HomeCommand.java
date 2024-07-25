@@ -11,14 +11,16 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+
 import java.util.UUID;
 
 public class HomeCommand implements CommandExecutor {
     private final HomeDAO homeDAO;
-    private final CooldownManager cooldownManager;
+    private final CooldownManager cooldownManager = new CooldownManager();
 
-    public HomeCommand(HomeDAO homeDAO, CooldownManager cooldownManager) {
-        this.cooldownManager = cooldownManager;
+
+
+    public HomeCommand(HomeDAO homeDAO) {
         this.homeDAO = homeDAO;
     }
 

@@ -1,19 +1,17 @@
 package br.com.thiago.testeTecnicoPlugin.util;
 
+import br.com.thiago.testeTecnicoPlugin.Main;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 public class CooldownManager {
     private final Map<UUID, Long> cooldowns = new HashMap<>();
-    private final long cooldownTime; // Tempo de cooldown em milissegundos
 
-    public CooldownManager(long cooldownTime) {
-        this.cooldownTime = cooldownTime;
-    }
 
     public void setCooldown(UUID playerId) {
-        cooldowns.put(playerId, System.currentTimeMillis() + cooldownTime);
+        cooldowns.put(playerId, System.currentTimeMillis() + Main.getCooldownTime());
     }
 
     public boolean hasCooldown(UUID playerId) {

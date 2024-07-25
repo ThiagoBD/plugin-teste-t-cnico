@@ -1,5 +1,6 @@
 package br.com.thiago.testeTecnicoPlugin;
 
+import br.com.thiago.testeTecnicoPlugin.comands.ConfigurationHomeAttributesCommand;
 import br.com.thiago.testeTecnicoPlugin.comands.HomeCommand;
 import br.com.thiago.testeTecnicoPlugin.comands.SetHomeCommand;
 import br.com.thiago.testeTecnicoPlugin.comands.SetWindChargeAttributesCommand;
@@ -15,50 +16,29 @@ import java.util.Optional;
 
 public final class Main extends JavaPlugin {
     private HomeDAO homeDAO;
-    private CooldownManager cooldownManager;
     private static Optional<Double>windChargeDamage = Optional.empty();
     private static Optional<Double> windChargeVelocity = Optional.empty();
     private static Boolean isSummonParticleTeleport = false;
     private static Boolean isSummonParticleWindCharge = false;
+    private static long cooldownTime = 60000;
 
     @Override
     public void onEnable() {
         int maxHomes = 1;
-        long cooldownTime = 60000;
-
         homeDAO = HomeDAOFactory.createHomeDAO();
-        cooldownManager = new CooldownManager(cooldownTime);
 
-        this.getCommand("setAttributesWindCharge").setExecutor(new SetWindChargeAttributesCommand(this));
+        this.getCommand("setAttributesWindCharge").setExecutor(new SetWindChargeAttributesCommand());
         getServer().getPluginManager().registerEvents(new WindChargeLaunchListener(), this);
         getServer().getPluginManager().registerEvents(new WindChargeDamageListener(), this);
-
-
-
-        this.getCommand("sethome").setExecutor(new SetHomeCommand(homeDAO,cooldownManager, maxHomes));
-        this.getCommand("home").setExecutor(new HomeCommand(homeDAO,cooldownManager));
+        this.getCommand("setHomeConfig").setExecutor(new ConfigurationHomeAttributesCommand());
+        this.getCommand("sethome").setExecutor(new SetHomeCommand(homeDAO,new CooldownManager(), maxHomes));
+        this.getCommand("home").setExecutor(new HomeCommand(homeDAO));
 
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-    }
-
-    public HomeDAO getHomeDAO() {
-        return homeDAO;
-    }
-
-    public void setHomeDAO(HomeDAO homeDAO) {
-        this.homeDAO = homeDAO;
-    }
-
-    public CooldownManager getCooldownManager() {
-        return cooldownManager;
-    }
-
-    public void setCooldownManager(CooldownManager cooldownManager) {
-        this.cooldownManager = cooldownManager;
     }
 
     public static Optional<Double> getWindChargeDamage() {
@@ -91,5 +71,13 @@ public final class Main extends JavaPlugin {
 
     public static void setIsSummonParticleWindCharge(Boolean isSummonParticleWindCharge) {
         Main.isSummonParticleWindCharge = isSummonParticleWindCharge;
+    }
+
+    public static long getCooldownTime() {
+        return cooldownTime;
+    }
+
+    public static void setCooldownTime(long cooldownTime) {
+        Main.cooldownTime = cooldownTime;
     }
 }

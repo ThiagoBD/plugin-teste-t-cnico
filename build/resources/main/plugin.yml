@@ -10,3 +10,5 @@ commands:
   setAttributesWindCharge:
     description: Altera os Atributos do WindCharge
     usage: /setAttributesWindCharge <dano> <velocidade>
+  setHomeConfig:
+    description: altera os atributos do comando Home.

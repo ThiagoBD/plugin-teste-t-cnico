@@ -6,11 +6,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 public class SetWindChargeAttributesCommand implements CommandExecutor {
-    private final Main plugin;
-
-    public SetWindChargeAttributesCommand(Main plugin) {
-        this.plugin = plugin;
-    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] strings) {
