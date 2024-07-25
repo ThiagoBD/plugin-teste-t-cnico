@@ -18,6 +18,8 @@ public final class Main extends JavaPlugin {
     private CooldownManager cooldownManager;
     private static Optional<Double>windChargeDamage = Optional.empty();
     private static Optional<Double> windChargeVelocity = Optional.empty();
+    private static Boolean isSummonParticleTeleport = false;
+    private static Boolean isSummonParticleWindCharge = false;
 
     @Override
     public void onEnable() {
@@ -73,5 +75,21 @@ public final class Main extends JavaPlugin {
 
     public static void setWindChargeVelocity(double velocity) {
         windChargeVelocity = Optional.of(velocity);
+    }
+
+    public static Boolean getIsSummonParticleTeleport() {
+        return isSummonParticleTeleport;
+    }
+
+    public static void setIsSummonParticleTeleport(Boolean isSummonParticleTeleport) {
+        Main.isSummonParticleTeleport = isSummonParticleTeleport;
+    }
+
+    public static Boolean getIsSummonParticleWindCharge() {
+        return isSummonParticleWindCharge;
+    }
+
+    public static void setIsSummonParticleWindCharge(Boolean isSummonParticleWindCharge) {
+        Main.isSummonParticleWindCharge = isSummonParticleWindCharge;
     }
 }

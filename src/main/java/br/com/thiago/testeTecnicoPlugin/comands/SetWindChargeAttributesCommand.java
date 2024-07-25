@@ -18,13 +18,19 @@ public class SetWindChargeAttributesCommand implements CommandExecutor {
             sender.sendMessage("You do not have permission to use this command.");
             return true;
         }
-        if (strings.length != 2) {
-            sender.sendMessage("Uso: /setAttributesWindCharge <damage> <speed>");
+        if (strings.length != 3) {
+            sender.sendMessage("Uso: /setAttributesWindCharge <damage> <speed> <particle(true or false)");
+            return true;
+        }
+        if(!strings[2].equalsIgnoreCase("true") && !strings[2].equalsIgnoreCase("false")){
+            sender.sendMessage("o comando /setAttributesWindCharge tem que receber um valor (true ou false) no seu 3 campo.");
             return true;
         }
         try {
             double damage = Double.parseDouble(strings[0]);
             double velocity = Double.parseDouble(strings[1]);
+            boolean isSummonParticle = Boolean.parseBoolean(strings[2]);
+            Main.setIsSummonParticleWindCharge(isSummonParticle);
             Main.setWindChargeDamage(damage);
             Main.setWindChargeVelocity(velocity);
             sender.sendMessage("WindCharge attributes set successfully!");

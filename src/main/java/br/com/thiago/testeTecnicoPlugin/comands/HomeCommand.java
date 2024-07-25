@@ -1,5 +1,6 @@
 package br.com.thiago.testeTecnicoPlugin.comands;
 
+import br.com.thiago.testeTecnicoPlugin.Main;
 import br.com.thiago.testeTecnicoPlugin.dao.HomeDAO;
 import br.com.thiago.testeTecnicoPlugin.model.PlayerHome;
 import br.com.thiago.testeTecnicoPlugin.util.CooldownManager;
@@ -45,7 +46,7 @@ public class HomeCommand implements CommandExecutor {
 
         Location homeLocation = home.getLocation();
         player.teleport(homeLocation);
-        ParticleUtil.showTeleportParticles(player);
+        ParticleUtil.showParticlesInLocation(player.getLocation(), Main.getIsSummonParticleTeleport());
         cooldownManager.setCooldown(playerId);
         player.sendMessage("Teleporte realizado com sucesso!");
 
